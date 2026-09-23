@@ -21,18 +21,14 @@
     object-fit: cover;
     object-position: center ;
     display: block;
-    background-color: #E6D6F5; /* shows as a plasceholder box until you add your banner photo link */
+    background-color: #E6D6F5; 
   }
-
-  
 
   .container {
     max-width: 950px;
     margin: 0 auto;
     padding: 20px;
   }
-
-  /* ---------- CARD GRID (home page) ---------- */
 
   .card-grid {
     display: flex;
@@ -52,26 +48,26 @@
     text-align: center;
     cursor: pointer;
 
-    /* fade-in-on-load starting state */
+    /* fade chesthadhi */
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 0.6s ease, transform 0.6s ease, border-color 0.3s ease, box-shadow 0.3s ease;
   }
 
-  /* JS adds this class once the page has loaded, see script at the bottom */
+  /* js reference kosam */
   .coffee-card.show {
     opacity: 1;
     transform: translateY(0);
   }
 
-  /* highlight the card when mouse moves over it */
+  /* coffee card higjlight kosam */
   .coffee-card:hover {
     border-color: #9b5fd1;
     box-shadow: 0 6px 14px rgba(155, 95, 209, 0.3);
     transform: translateY(-4px);
   }
 
-  /* the glowing spotlight that follows the mouse, based on --x and --y set by JS */
+  /* glowing js kosam */
   .coffee-card::before {
     content: "";
     position: absolute;
@@ -94,7 +90,7 @@
     height: 180px;
     object-fit: cover;
     border-radius: 8px;
-    background-color: #E6D6F5; /* shows as a placeholder box until you add a photo link */
+    background-color: #E6D6F5; /* photo click chese dhaka placeholder untqdhii */
   }
 
   .coffee-card h2 {
@@ -103,7 +99,7 @@
     margin: 12px 0 0 0;
   }
 
-  /* ---------- DETAIL PAGE (shown after clicking a card) ---------- */
+  /* details page dhi */
 
   .detail-page {
     display: none;
@@ -307,7 +303,7 @@
   </div>
 
   <script>
-
+        /* ------------------------------------claude work from here------------------------------------------ */
     // ---------- EFFECT 1: fade in each card one after another when the page loads ----------
     // idea/reference: the classic JS fade-in pattern from W3Schools (w3schools.com/js)
     window.addEventListener('load', function () {
