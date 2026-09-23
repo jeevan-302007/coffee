@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lora:wght@400;600&display=swap" rel="stylesheet">    
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Coffee World - 9 Coffees Explained</title>
+<style>
+
+  body {
+    font-family: 'Lora', 'Georgia', serif;
+    background-color: #f6eefc;
+    color: #3f2d5c;
+    margin: 0;
+    padding: 0;
+  }
+
+  .banner {
+    width: 100%;
+    height: 900px;
+    object-fit: cover;
+    object-position: center ;
+    display: block;
+    background-color: #E6D6F5; /* shows as a plasceholder box until you add your banner photo link */
+  }
+
+  
+
+  .container {
+    max-width: 950px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  /* ---------- CARD GRID (home page) ---------- */
+
+  .card-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+
+  .coffee-card {
+    position: relative;
+    overflow: hidden;
+    background-color: #ffffff;
+    border: 2px solid #d9c0ee;
+    border-radius: 10px;
+    width: 240px;
+    padding: 15px;
+    text-align: center;
+    cursor: pointer;
+
+    /* fade-in-on-load starting state */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  /* JS adds this class once the page has loaded, see script at the bottom */
+  .coffee-card.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* highlight the card when mouse moves over it */
+  .coffee-card:hover {
+    border-color: #9b5fd1;
+    box-shadow: 0 6px 14px rgba(155, 95, 209, 0.3);
+    transform: translateY(-4px);
+  }
+
+  /* the glowing spotlight that follows the mouse, based on --x and --y set by JS */
+  .coffee-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    background: radial-gradient(circle 150px at var(--x, 50%) var(--y, 50%), rgba(155, 95, 209, 0.18), transparent 70%);
+  }
+
+  .coffee-card:hover::before {
+    opacity: 1;
+  }
+
+  .coffee-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+    background-color: #E6D6F5; /* shows as a placeholder box until you add a photo link */
+  }
+
+  .coffee-card h2 {
+    color: #6b3fa0;
+    font-size: 20px;
+    margin: 12px 0 0 0;
+  }
+
+  /* ---------- DETAIL PAGE (shown after clicking a card) ---------- */
+
+  .detail-page {
+    display: none;
+  }
+
+  .detail-page img {
+    width: 100%;
+    max-height: 320px;
+    object-fit: cover;
+    border-radius: 10px;
+    background-color: #E6D6F5;
+  }
+
+  .detail-page h2 {
+    color: #6b3fa0;
+    font-size: 30px;
+    margin-top: 15px;
+  }
+
+  .detail-page p {
+    line-height: 1.6;
+    margin: 10px 0;
+  }
+
+  .label {
+    font-weight: bold;
+    color: #8a4fc0;
+  }
+
+  .back-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 18px;
+    background-color: #8a4fc0;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 15px;
+  }
+
+  .back-button:hover {
+    background-color: #6b3fa0;
+  }
+  h2 {
+  font-family: 'Playfair Display', serif;
+}
+
+</style>
+</head>
+<body>
+
+  <img class="banner" src="coffee.png" alt="Coffee World banner">
+
+  <div class="container">
+
+    <!-- ============ HOME PAGE (card grid) ============ -->
+    <div id="home">
+      <div class="card-grid">
+
+        <div class="coffee-card" onclick="showPage('espresso')">
+          <img src="expresso.jpeg" alt="Espresso">
+          <h2>Espresso</h2>
+        </div>
+
+        <div class="coffee-card" onclick="showPage('cappuccino')">
+          <img src="cappuccino.jpeg" alt="Cappuccino">
+          <h2>Cappuccino</h2>
+        </div>
+
+        <div class="coffee-card" onclick="showPage('latte')">
+          <img src="latte.jpeg" alt="Latte">
+          <h2>Latte</h2>
+        </div>
+
+        <div class="coffee-card" onclick="showPage('americano')">
+          <img src="americano.jpeg" alt="Americano">
+          <h2>Americano</h2>
+        </div>
+
+        <div class="coffee-card" onclick="showPage('macchiato')">
+          <img src="macchiato.jpeg" alt="Macchiato">
+          <h2>Macchiato</h2>
+        </div>
+
+        <div class="coffee-card" onclick="showPage('mocha')">
+          <img src="mocha.jpeg" alt="Mocha">
+          <h2>Mocha</h2>
+        </div>
+
+        <div class="coffee-card" onclick="showPage('flatwhite')">
+          <img src="flatwhite.jpeg" alt="Flat White">
+          <h2>Flat White</h2>
+        </div>
+
+        <div class="coffee-card" onclick="showPage('coldbrew')">
+          <img src="coldbrew.jpeg" alt="Cold Brew">
+          <h2>Cold Brew</h2>
+        </div>
+
+        <div class="coffee-card" onclick="showPage('affogato')">
+          <img src="affogato.jpeg" alt="Affogato">
+          <h2>Affogato</h2>
+        </div>
+
+      </div>
+    </div>
+
+   
+
+    <div id="page-espresso" class="detail-page">
+      <img src="expresso.jpeg" alt="Espresso">
+      <h2>Espresso</h2>
+      <p><span class="label">Nature:</span> Born in Italy, poured fast and dark — like a secret told once and never repeated.</p>
+      <p><span class="label">Taste:</span> Sharp, bitter, unapologetic, crowned with a thin gold crema that catches the morning light.</p>
+      <p><span class="label">Vibe:</span> A midnight drive with the windows down — brief, electric, unforgettable.</p>
+      <p><span class="label">Speciality:</span> Small enough to fit in your palm, strong enough to start every love story after it.</p>
+      <button class="back-button" onclick="goHome()">&larr; Back to all coffees</button>
+    </div>
+
+    <div id="page-cappuccino" class="detail-page">
+      <img src="cappuccino.jpeg" alt="Cappuccino">
+      <h2>Cappuccino</h2>
+      <p><span class="label">Nature:</span> An Italian classic, foam and milk folded into espresso like lace laid over silk.</p>
+      <p><span class="label">Taste:</span> Creamy and soft-spoken, sweet at the edges — a whisper instead of a shout.</p>
+      <p><span class="label">Vibe:</span> Sunday mornings in a velvet chair, sunlight through lace curtains.</p>
+      <p><span class="label">Speciality:</span> A dusting of cocoa on top, like powder on an old vanity mirror.</p>
+      <button class="back-button" onclick="goHome()">&larr; Back to all coffees</button>
+    </div>
+
+    <div id="page-latte" class="detail-page">
+      <img src="latte.jpeg" alt="Latte">
+      <h2>Latte</h2>
+      <p><span class="label">Nature:</span> Espresso drowned gently in steamed milk, a thin foam laid over it like a veil.</p>
+      <p><span class="label">Taste:</span> Mild and milky, easy to fall for, easy to stay.</p>
+      <p><span class="label">Vibe:</span> Slow jazz on vinyl, a cigarette that never quite gets smoked.</p>
+      <p><span class="label">Speciality:</span> Dressed up in vanilla or caramel, always a little glamorous.</p>
+      <button class="back-button" onclick="goHome()">&larr; Back to all coffees</button>
+    </div>
+
+    <div id="page-americano" class="detail-page">
+      <img src="americano.jpeg" alt="Americano">
+      <h2>Americano</h2>
+      <p><span class="label">Nature:</span> Espresso stretched thin with hot water, born from soldiers craving something close to home.</p>
+      <p><span class="label">Taste:</span> Honest and unhurried, softer than its espresso mother.</p>
+      <p><span class="label">Vibe:</span> Black coffee at a chrome diner counter, three in the morning, no one else around.</p>
+      <p><span class="label">Speciality:</span> You decide how strong the story gets — just add water.</p>
+      <button class="back-button" onclick="goHome()">&larr; Back to all coffees</button>
+    </div>
+
+    <div id="page-macchiato" class="detail-page">
+      <img src="macchiato.jpeg" alt="Macchiato">
+      <h2>Macchiato</h2>
+      <p><span class="label">Nature:</span> Espresso "stained" with the faintest touch of foam, Italian and unbothered.</p>
+      <p><span class="label">Taste:</span> Bold and dark, only a whisper of sweetness allowed to interrupt.</p>
+      <p><span class="label">Vibe:</span> Red lipstick and a quick exit — no time for goodbyes.</p>
+      <p><span class="label">Speciality:</span> Barely any milk, all attitude.</p>
+      <button class="back-button" onclick="goHome()">&larr; Back to all coffees</button>
+    </div>
+
+    <div id="page-mocha" class="detail-page">
+      <img src="mocha.jpeg" alt="Mocha">
+      <h2>Mocha</h2>
+      <p><span class="label">Nature:</span> Espresso, chocolate, and steamed milk — dessert wearing a coffee's coat.</p>
+      <p><span class="label">Taste:</span> Sweet and rich, indulgent, like a secret kept just for yourself.</p>
+      <p><span class="label">Vibe:</span> Old Hollywood glamour, velvet booths, a slow dance in a smoky room.</p>
+      <p><span class="label">Speciality:</span> Whipped cream on top, chocolate drizzled like a love letter.</p>
+      <button class="back-button" onclick="goHome()">&larr; Back to all coffees</button>
+    </div>
+
+    <div id="page-flatwhite" class="detail-page">
+      <img src="flatwhite.jpeg" alt="Flat White">
+      <h2>Flat White</h2>
+      <p><span class="label">Nature:</span> From Australia and New Zealand, espresso wrapped in silky micro-foam.</p>
+      <p><span class="label">Taste:</span> Velvet on the tongue, strong enough to remember.</p>
+      <p><span class="label">Vibe:</span> Sunglasses indoors, a little too cool, a little too sure of itself.</p>
+      <p><span class="label">Speciality:</span> Smaller than a latte, but never small in presence.</p>
+      <button class="back-button" onclick="goHome()">&larr; Back to all coffees</button>
+    </div>
+
+    <div id="page-coldbrew" class="detail-page">
+      <img src="coldbrew.jpeg" alt="Cold Brew">
+      <h2>Cold Brew</h2>
+      <p><span class="label">Nature:</span> Steeped slow in cold water for a day, patience turned into flavor.</p>
+      <p><span class="label">Taste:</span> Smooth and naturally sweet, nothing bitter left to forgive.</p>
+      <p><span class="label">Vibe:</span> Summertime sadness in a mason jar, ice clinking like a lullaby.</p>
+      <p><span class="label">Speciality:</span> Keeps for days — some things, thankfully, don't fade fast.</p>
+      <button class="back-button" onclick="goHome()">&larr; Back to all coffees</button>
+    </div>
+
+    <div id="page-affogato" class="detail-page">
+      <img src="affogato.jpeg" alt="Affogato">
+      <h2>Affogato</h2>
+      <p><span class="label">Nature:</span> An Italian dessert where hot espresso meets cold vanilla gelato.</p>
+      <p><span class="label">Taste:</span> Sweet and creamy, a little bittersweet — hot and cold colliding like old love.</p>
+      <p><span class="label">Vibe:</span> The last dance of the evening, dessert and drink poured into one glass.</p>
+      <p><span class="label">Speciality:</span> Half indulgence, half farewell.</p>
+      <button class="back-button" onclick="goHome()">&larr; Back to all coffees</button>
+    </div>
+
+  </div>
+
+  <script>
+
+    // ---------- EFFECT 1: fade in each card one after another when the page loads ----------
+    // idea/reference: the classic JS fade-in pattern from W3Schools (w3schools.com/js)
+    window.addEventListener('load', function () {
+      var cards = document.querySelectorAll('.coffee-card');
+      for (var i = 0; i < cards.length; i++) {
+        (function (card, delay) {
+          setTimeout(function () {
+            card.classList.add('show');
+          }, delay);
+        })(cards[i], i * 100); // each card waits a little longer than the last one
+      }
+    });
+
+    // ---------- EFFECT 2: glowing spotlight that follows the mouse on each card ----------
+    // idea/reference: the "spotlight hover" technique from CSS-Tricks (css-tricks.com)
+    var allCoffeeCards = document.querySelectorAll('.coffee-card');
+    for (var j = 0; j < allCoffeeCards.length; j++) {
+      allCoffeeCards[j].addEventListener('mousemove', function (event) {
+        var rect = this.getBoundingClientRect();
+        var x = event.clientX - rect.left;
+        var y = event.clientY - rect.top;
+        this.style.setProperty('--x', x + 'px');
+        this.style.setProperty('--y', y + 'px');
+      });
+    }
+
+    // simple function to hide the home grid and show one coffee's detail page
+    function showPage(coffeeId) {
+      document.getElementById('home').style.display = 'none';
+
+      var allPages = document.getElementsByClassName('detail-page');
+      for (var i = 0; i < allPages.length; i++) {
+        allPages[i].style.display = 'none';
+      }
+
+      document.getElementById('page-' + coffeeId).style.display = 'block';
+      window.scrollTo(0, 0);
+    }
+
+    // simple function to go back to the home grid
+    function goHome() {
+      var allPages = document.getElementsByClassName('detail-page');
+      for (var i = 0; i < allPages.length; i++) {
+        allPages[i].style.display = 'none';
+      }
+      document.getElementById('home').style.display = 'block';
+      window.scrollTo(0, 0);
+    }
+  </script>
+
+</body>
+</html>
